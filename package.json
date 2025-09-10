@@ -7,9 +7,9 @@
     "test": "tests"
   },
   "scripts": {
-    "test:vitest": "vitest",
-    "test:jest": "jest",
-    "test:mocha": "mocha tests/**/*.mocha.test.js"
+    "test:vitest": "vitest run --reporter=dot",
+    "test:jest": "jest --runInBand --silent",
+    "test:mocha": "mocha \"tests-mocha/**/*.js\""
   },
   "repository": {
     "type": "git",
@@ -24,8 +24,14 @@
   "homepage": "https://github.com/FelipeBentancour/PoC-DdS#readme",
   "devDependencies": {
     "@types/jest": "^30.0.0",
+    "chai": "^6.0.1",
     "jest": "^30.1.3",
     "mocha": "^11.7.2",
+    "supertest": "^7.1.4",
     "vitest": "^3.2.4"
+  },
+  "dependencies": {
+    "express": "^5.1.0",
+    "zod": "^4.1.5"
   }
 }
