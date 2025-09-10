@@ -35,4 +35,18 @@ describe("API (Mocha+Chai)", () => {
     const res = await request(app).post("/products").send({ name: "H", price: -2, stock: 0 });
     expect(res.status).to.equal(400);
   });
+
+  it("GET /no-existe => 404 (ruta inexistente)", async () => {
+  const res = await request(app).get("/no-existe");
+  expect(res.status).to.equal(404);
+});
+
+it("GET /boom => 500 (error interno JSON)", async () => {
+  const res = await request(app).get("/boom");
+  expect(res.status).to.equal(500);
+  expect(res.body).to.be.an("object");
+  expect(res.body.error).to.equal("internal_error");
+  expect(res.body.message).to.be.a("string");
+});
+
 });

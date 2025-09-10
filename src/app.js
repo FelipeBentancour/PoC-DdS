@@ -6,8 +6,8 @@ app.use(express.json());
 
 // Datos en memoria
 const users = [
-  { id: 1, email: "alice@example.com", role: "user" },
-  { id: 2, email: "bob@example.com", role: "admin" }
+  { id: 1, email: "felipe@gmail.com", role: "user" },
+  { id: 2, email: "martin@gmail.com", role: "admin" }
 ];
 const products = [];
 
@@ -47,6 +47,20 @@ app.post("/products", (req, res) => {
   const item = { id: products.length + 1, ...parsed.data };
   products.push(item);
   res.status(201).json({ data: item });
+});
+
+// --- Forzar 500 para pruebas de error interno ---
+app.get("/boom", (_req, _res) => {
+  throw new Error("Simulated crash");
+});
+
+// --- Middleware de error (formato JSON consistente) ---
+app.use((err, _req, res, _next) => {
+  // Podés loguear si querés: console.error(err);
+  res.status(500).json({
+    error: "internal_error",
+    message: err.message
+  });
 });
 
 // ping

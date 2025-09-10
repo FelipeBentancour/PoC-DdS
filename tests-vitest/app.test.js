@@ -1,5 +1,5 @@
 const request = require("supertest");
-const { describe, it, expect } = require("vitest");
+
 const { app } = require("../src/app");
 
 describe("API (Vitest)", () => {
@@ -35,4 +35,18 @@ describe("API (Vitest)", () => {
     const res = await request(app).post("/products").send({ name: "X", price: -1, stock: -3 });
     expect(res.status).toBe(400);
   });
+
+  it("GET /no-existe => 404 (ruta inexistente)", async () => {
+  const res = await request(app).get("/no-existe");
+  expect(res.status).toBe(404);
+});
+
+it("GET /boom => 500 (error interno JSON)", async () => {
+  const res = await request(app).get("/boom");
+  expect(res.status).toBe(500);
+  expect(res.body).toBeDefined();
+  expect(res.body.error).toBe("internal_error");
+  expect(typeof res.body.message).toBe("string");
+});
+
 });
