@@ -15,12 +15,12 @@ describe("API (Vitest)", () => {
   });
 
   it("POST /login credenciales inválidas => 401", async () => {
-    const res = await request(app).post("/login").send({ email: "alice@example.com", password: "wrong" });
+    const res = await request(app).post("/login").send({ email: "felipe@gmail.com", password: "wrong" });
     expect(res.status).toBe(401);
   });
 
   it("POST /login válido => 200", async () => {
-    const res = await request(app).post("/login").send({ email: "alice@example.com", password: "secret123" });
+    const res = await request(app).post("/login").send({ email: "felipe@gmail.com", password: "secret123" });
     expect(res.status).toBe(200);
     expect(res.body.ok).toBe(true);
   });
